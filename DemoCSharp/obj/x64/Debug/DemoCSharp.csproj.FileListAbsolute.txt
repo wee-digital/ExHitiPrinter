@@ -1,0 +1,7 @@
+C:\Working\DemoCSharp\obj\x64\Debug\DemoCSharp.csprojAssemblyReference.cache
+C:\Working\DemoCSharp\obj\x64\Debug\DemoCSharp.Form1.resources
+C:\Working\DemoCSharp\obj\x64\Debug\DemoCSharp.Properties.Resources.resources
+C:\Working\DemoCSharp\obj\x64\Debug\DemoCSharp.SetPasswordDialog.resources
+C:\Working\DemoCSharp\obj\x64\Debug\DemoCSharp.SetSecurityModeDialog.resources
+C:\Working\DemoCSharp\obj\x64\Debug\DemoCSharp.csproj.GenerateResource.cache
+C:\Working\DemoCSharp\obj\x64\Debug\DemoCSharp.csproj.CoreCompileInputs.cache

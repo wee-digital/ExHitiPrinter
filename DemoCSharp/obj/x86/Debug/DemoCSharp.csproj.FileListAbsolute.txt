@@ -1,0 +1,12 @@
+C:\Users\Huy\Downloads\PrinterCardSDK_1_8_22\PrinterCardSDK_1_8_22\Sample\DemoCSharp\bin\x86\Debug\DemoCSharp.exe
+C:\Users\Huy\Downloads\PrinterCardSDK_1_8_22\PrinterCardSDK_1_8_22\Sample\DemoCSharp\bin\x86\Debug\DemoCSharp.pdb
+C:\Users\Huy\Downloads\PrinterCardSDK_1_8_22\PrinterCardSDK_1_8_22\Sample\DemoCSharp\obj\x86\Debug\DemoCSharp.csprojAssemblyReference.cache
+C:\Users\Huy\Downloads\PrinterCardSDK_1_8_22\PrinterCardSDK_1_8_22\Sample\DemoCSharp\obj\x86\Debug\DemoCSharp.Form1.resources
+C:\Users\Huy\Downloads\PrinterCardSDK_1_8_22\PrinterCardSDK_1_8_22\Sample\DemoCSharp\obj\x86\Debug\DemoCSharp.Properties.Resources.resources
+C:\Users\Huy\Downloads\PrinterCardSDK_1_8_22\PrinterCardSDK_1_8_22\Sample\DemoCSharp\obj\x86\Debug\DemoCSharp.SetPasswordDialog.resources
+C:\Users\Huy\Downloads\PrinterCardSDK_1_8_22\PrinterCardSDK_1_8_22\Sample\DemoCSharp\obj\x86\Debug\DemoCSharp.SetSecurityModeDialog.resources
+C:\Users\Huy\Downloads\PrinterCardSDK_1_8_22\PrinterCardSDK_1_8_22\Sample\DemoCSharp\obj\x86\Debug\DemoCSharp.csproj.GenerateResource.cache
+C:\Users\Huy\Downloads\PrinterCardSDK_1_8_22\PrinterCardSDK_1_8_22\Sample\DemoCSharp\obj\x86\Debug\DemoCSharp.csproj.CoreCompileInputs.cache
+C:\Users\Huy\Downloads\PrinterCardSDK_1_8_22\PrinterCardSDK_1_8_22\Sample\DemoCSharp\obj\x86\Debug\DemoCSharp.csproj.CopyComplete
+C:\Users\Huy\Downloads\PrinterCardSDK_1_8_22\PrinterCardSDK_1_8_22\Sample\DemoCSharp\obj\x86\Debug\DemoCSharp.exe
+C:\Users\Huy\Downloads\PrinterCardSDK_1_8_22\PrinterCardSDK_1_8_22\Sample\DemoCSharp\obj\x86\Debug\DemoCSharp.pdb
