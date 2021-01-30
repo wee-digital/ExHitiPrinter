@@ -113,6 +113,7 @@
             this.buttonConnect = new System.Windows.Forms.Button();
             this.pictureBoxCard = new System.Windows.Forms.PictureBox();
             this.labelSocketMessage = new System.Windows.Forms.Label();
+            this.buttonSocketPrint = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1062,26 +1063,40 @@
             // 
             // pictureBoxCard
             // 
+            this.pictureBoxCard.InitialImage = null;
             this.pictureBoxCard.Location = new System.Drawing.Point(752, 264);
             this.pictureBoxCard.Name = "pictureBoxCard";
             this.pictureBoxCard.Size = new System.Drawing.Size(419, 263);
+            this.pictureBoxCard.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxCard.TabIndex = 2;
             this.pictureBoxCard.TabStop = false;
+            this.pictureBoxCard.Click += new System.EventHandler(this.pictureBoxCard_Click);
             // 
             // labelSocketMessage
             // 
             this.labelSocketMessage.AutoSize = true;
             this.labelSocketMessage.Location = new System.Drawing.Point(762, 554);
             this.labelSocketMessage.Name = "labelSocketMessage";
-            this.labelSocketMessage.Size = new System.Drawing.Size(62, 23);
+            this.labelSocketMessage.Size = new System.Drawing.Size(28, 23);
             this.labelSocketMessage.TabIndex = 2;
-            this.labelSocketMessage.Text = "label4";
+            this.labelSocketMessage.Text = "...";
+            // 
+            // buttonSocketPrint
+            // 
+            this.buttonSocketPrint.Location = new System.Drawing.Point(973, 22);
+            this.buttonSocketPrint.Name = "buttonSocketPrint";
+            this.buttonSocketPrint.Size = new System.Drawing.Size(128, 76);
+            this.buttonSocketPrint.TabIndex = 23;
+            this.buttonSocketPrint.Text = "Print";
+            this.buttonSocketPrint.UseVisualStyleBackColor = true;
+            this.buttonSocketPrint.Click += new System.EventHandler(this.buttonSocketPrint_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1183, 925);
+            this.Controls.Add(this.buttonSocketPrint);
             this.Controls.Add(this.labelSocketMessage);
             this.Controls.Add(this.pictureBoxCard);
             this.Controls.Add(this.buttonConnect);
@@ -1228,6 +1243,7 @@
         private System.Windows.Forms.Button buttonConnect;
         private System.Windows.Forms.PictureBox pictureBoxCard;
         private System.Windows.Forms.Label labelSocketMessage;
+        private System.Windows.Forms.Button buttonSocketPrint;
     }
 }
 

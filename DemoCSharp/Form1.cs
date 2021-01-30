@@ -15,6 +15,8 @@ using PavoCardSDK;
 using CS2xxRFID;
 using System.Net.WebSockets;
 using System.IO;
+using System.Drawing.Imaging;
+using System.Linq;
 
 namespace DemoCSharp
 {
@@ -31,7 +33,7 @@ namespace DemoCSharp
         int m_nPageToPrint;
         int m_nPagePrinted;
         readonly SocketClient client;
-        string socketUrl = "ws://localhost:5000/win";
+        string socketUrl = "ws://10.10.0.145:57976/win";
 
         //[DllImport("YLE402S.dll")]
         //static extern int GetCardNo(StringBuilder InStr, StringBuilder RcStr);
@@ -1199,8 +1201,17 @@ namespace DemoCSharp
         public void OnMessage(MemoryStream ms) {
             try
             {
-                Bitmap bmp = new Bitmap(ms);
-                pictureBoxCard.Image = bmp;
+                pictureBoxCard.Image = new Bitmap(ms);
+                var socketBitmap = new Bitmap(ms);
+                socketBitmap.Save(@"C:\Huy\img.bmp", ImageFormat.Bmp);
+
+                //ImageCodecInfo encoder = GetEncoder(ImageFormat.Bmp);
+                //System.Drawing.Imaging.Encoder QualityEncoder = System.Drawing.Imaging.Encoder.Quality;
+                //EncoderParameters myEncoderParameters = new EncoderParameters(1);
+                //EncoderParameter myEncoderParameter = new EncoderParameter(QualityEncoder, 20L);
+                //myEncoderParameters.Param[0] = myEncoderParameter;
+                //socketBitmap.Save(@"C:\Huy\img.bmp", encoder, myEncoderParameters);
+
             }
             catch (Exception e)
             {
@@ -1213,6 +1224,243 @@ namespace DemoCSharp
             MessageBox.Show(e.Message);
         }
 
-        
+        private void pictureBoxCard_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonSocketPrint_Click(object sender, EventArgs e)
+        {
+            if (radioButton1.Checked == false)
+            {
+                MessageBox.Show("Please select printer queue.", "Print By Driver", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            PAVO_JOB_PROPERTY JobProp = new PAVO_JOB_PROPERTY();
+
+            m_nPageToPrint = 0;
+            m_nPagePrinted = 0;
+
+            JobProp.dwFieldFlag = PavoApi.FF_CARD_TYPE | PavoApi.FF_FLAGS | PavoApi.FF_PARENT_HWND | PavoApi.FF_ORIENTATION
+                     | PavoApi.FF_COPIES | PavoApi.FF_DUPLEX | PavoApi.FF_RIBBON_TYPE | PavoApi.FF_PRINT_COLOR;
+
+            JobProp.hParentWnd = this.Handle;
+
+            JobProp.shOrientation = (short)(comboBoxOrientation.SelectedIndex + 1);
+            JobProp.shCopies = 1;
+
+            switch (comboBoxRibbon.SelectedIndex)
+            {
+                case 0: JobProp.byRibbonType = (byte)PavoApi.PAVO_RIBBON_TYPE_YMCKO; break;
+                case 1: JobProp.byRibbonType = (byte)PavoApi.PAVO_RIBBON_TYPE_K; break;
+                case 2: JobProp.byRibbonType = (byte)PavoApi.PAVO_RIBBON_TYPE_HALF_YMCKO; break;
+                case 3: JobProp.byRibbonType = (byte)PavoApi.PAVO_RIBBON_TYPE_YMCKOK; break;
+                case 4: JobProp.byRibbonType = (byte)PavoApi.PAVO_RIBBON_TYPE_KO; break;
+            }
+
+            JobProp.dwCardType = (uint)comboBoxCardType.SelectedIndex;
+
+            JobProp.dwFlags = 0;
+            if (checkBox1.Checked)
+                JobProp.dwFlags = PavoApi.PAVO_FLAG_NOT_SHOW_ERROR_MSG_DLG;
+            if (checkBox2.Checked)
+                JobProp.dwFlags |= PavoApi.PAVO_FLAG_WAIT_MSG_DONE;
+            if (checkBox3.Checked)
+                JobProp.dwFlags |= PavoApi.PAVO_FLAG_NOT_SHOW_CLEAN_MSG;
+            if (checkBox4.Checked)
+                JobProp.dwFlags |= PavoApi.PAVO_FLAG_WATCH_JOB_PRINTED;
+            if (checkBox6.Checked)
+                JobProp.dwFlags |= PavoApi.PAVO_FLAG_NOT_EJECT_CARD_AFTER_PRINTED;
+            if (checkBox7.Checked)
+                JobProp.dwFlags |= PavoApi.PAVO_FLAG_MOVE_CARD_TO_STANDBY_AFTER_PRINTED;
+
+            if (checkBox5.Checked)
+                JobProp.byPrintAs230e = 1;
+            else
+                JobProp.byPrintAs230e = 0;
+
+            if (comboBoxFrontSide.SelectedIndex > 0)
+            {
+                JobProp.byDuplex = 1;
+                m_nPageToPrint++;
+            }
+            if (comboBoxBackSide.SelectedIndex > 0)
+            {
+                JobProp.byDuplex |= 2;
+                m_nPageToPrint++;
+            }
+
+            if (comboBoxFrontSide.SelectedIndex == 1 || comboBoxFrontSide.SelectedIndex == 3)
+                JobProp.byPrintColor = 1;
+            if (comboBoxBackSide.SelectedIndex == 1 || comboBoxBackSide.SelectedIndex == 3)
+                JobProp.byPrintColor |= 2;
+
+            if (checkBoxK1.Checked && (comboBoxFrontSide.SelectedIndex == 2 || comboBoxFrontSide.SelectedIndex == 3))
+            {
+                JobProp.dwFieldFlag |= PavoApi.FF_DATA_FLAG;
+                JobProp.dwDataFlag |= PavoApi.PAVO_DATAFLAG_RESIN_FRONT;
+            }
+            if (checkBoxK2.Checked && (comboBoxBackSide.SelectedIndex == 2 || comboBoxBackSide.SelectedIndex == 3))
+            {
+                JobProp.dwFieldFlag |= PavoApi.FF_DATA_FLAG;
+                JobProp.dwDataFlag |= PavoApi.PAVO_DATAFLAG_RESIN_BACK;
+            }
+
+            //create print job
+            PrintDocument pd = new PrintDocument();
+
+            pd.PrinterSettings.PrinterName = comboBoxPrinterQueue.Text;
+            pd.DefaultPageSettings.Margins.Left = 0;
+            pd.DefaultPageSettings.Margins.Top = 0;
+            pd.DefaultPageSettings.Margins.Right = 0;
+            pd.DefaultPageSettings.Margins.Bottom = 0;
+            pd.DocumentName = "DemoCSharp Print Job";
+
+            PavoApi.PAVO_ApplyJobSetting(pd.PrinterSettings, ref JobProp);
+
+            pd.PrintPage += new PrintPageEventHandler(OnSocketPrintPage);
+
+            try
+            {
+                pd.Print();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "列印失敗", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                pd.PrintController.OnEndPrint(pd, new PrintEventArgs());
+            }
+
+            pd.PrintPage -= OnSocketPrintPage;
+        }
+       
+        private void OnSocketPrintPage(object sender, PrintPageEventArgs e)
+        {
+            Image colorImg = null;
+            Rectangle rect;
+
+            uint dwRet = 0;
+            IntPtr hPrinterDC;
+            uint dwDataTypeK = 0;
+            Bitmap bmpK8;
+
+            if (comboBoxOrientation.SelectedIndex == 0)//portrait
+                rect = new Rectangle(0, 0, 642, 1014);
+            else//landscape
+                rect = new Rectangle(0, 0, 1014, 642);
+
+            e.Graphics.PageUnit = GraphicsUnit.Pixel;
+
+            //---------------------------------------------
+            hPrinterDC = e.Graphics.GetHdc();
+
+            //send resin K ----------------------
+            if (m_nPageToPrint == 1)
+            {
+                if (comboBoxFrontSide.SelectedIndex > 0 && checkBoxK1.Checked)
+                    dwDataTypeK = PavoApi.PAVO_DATA_RESIN_FRONT;
+                else if (comboBoxBackSide.SelectedIndex > 0 && checkBoxK2.Checked)
+                    dwDataTypeK = PavoApi.PAVO_DATA_RESIN_BACK;
+            }
+            else if (m_nPageToPrint == 2)
+            {
+                if (m_nPagePrinted == 0)//front side
+                {
+                    if (checkBoxK1.Checked)
+                        dwDataTypeK = PavoApi.PAVO_DATA_RESIN_FRONT;
+                }
+                else//back side
+                {
+                    if (checkBoxK2.Checked)
+                        dwDataTypeK = PavoApi.PAVO_DATA_RESIN_BACK;
+                }
+            }
+
+            if (dwDataTypeK != 0)
+            {
+                if (dwDataTypeK == PavoApi.PAVO_DATA_RESIN_FRONT)
+                    bmpK8 = (Bitmap)Bitmap.FromFile(@"C:\Huy\img.bmp");
+                else
+                    bmpK8 = (Bitmap)Bitmap.FromFile(@"C:\Huy\img.bmp");
+                dwRet = PavoApi.PAVO_SetExtraDataToHDC(hPrinterDC, dwDataTypeK, bmpK8);
+            }
+
+            e.Graphics.ReleaseHdc(hPrinterDC);
+            //---------------------------------------------
+
+            //send color image ============================
+            if (m_nPageToPrint == 1)
+            {
+                if (checkBoxColor1.Checked)
+                {
+                    //InsertText("Front Side");
+                    colorImg = Image.FromFile(textBoxColor1.Text);
+                }
+                else if (checkBoxColor2.Checked)
+                {
+                    //InsertText("Back Side");
+                    colorImg = Image.FromFile(textBoxColor2.Text);
+                }
+
+                if (colorImg != null)
+                    e.Graphics.DrawImage(colorImg, rect);
+
+                // Create string to draw.
+                String drawString = " ";
+
+                // Create font and brush.
+                Font drawFont = new Font("Arial", 16);
+                SolidBrush drawBrush = new SolidBrush(Color.Black);
+
+                // Create point for upper-left corner of drawing.
+                PointF drawPoint = new PointF(150.0F, 150.0F);
+
+                // Draw string to screen.
+                e.Graphics.DrawString(drawString, drawFont, drawBrush, drawPoint);
+            }
+            else if (m_nPageToPrint == 2)
+            {
+                if (m_nPagePrinted == 0)
+                {
+                    if (checkBoxColor1.Checked)
+                    {
+                        //InsertText("Front Side");
+                        colorImg = Image.FromFile(textBoxColor1.Text);
+                    }
+                }
+                else
+                {
+                    if (checkBoxColor2.Checked)
+                    {
+                        //InsertText("Back Side");
+                        colorImg = Image.FromFile(textBoxColor2.Text);
+                    }
+                }
+
+                if (colorImg != null)
+                    e.Graphics.DrawImage(colorImg, rect);
+            }
+
+            m_nPagePrinted++;
+
+            if (m_nPageToPrint == m_nPagePrinted)
+                e.HasMorePages = false;
+            else
+                e.HasMorePages = true;
+        }
+
+        private ImageCodecInfo GetEncoder(ImageFormat format)
+        {
+            ImageCodecInfo[] codecs = ImageCodecInfo.GetImageDecoders();
+            foreach (ImageCodecInfo codec in codecs)
+            {
+                if (codec.FormatID == format.Guid)
+                {
+                    return codec;
+                }
+            }
+            return null;
+        }
+
     }
 }

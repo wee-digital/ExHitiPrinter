@@ -2,6 +2,9 @@
 DemoCSharp/bin/*
 DemoCSharp/obj/*
 DemoCSharp/obj/x86/*
-DemoCSharp/.vs/*
+DemoCSharp.vs/*
 DemoCSharp/obj/x86/Debug/DemoCSharp.csproj.FileListAbsolute.txt
 DemoCSharp/.vs/DemoCSharp/v16/.suo
+WebApplication/bin/Debug/*
+WebApplication/.vs/*
+WebApplication/obj/*

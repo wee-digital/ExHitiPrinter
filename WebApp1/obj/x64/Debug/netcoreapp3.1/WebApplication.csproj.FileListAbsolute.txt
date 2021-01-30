@@ -1,0 +1,5 @@
+C:\Working\WebApplication\obj\x64\Debug\netcoreapp3.1\WebApplication.csprojAssemblyReference.cache
+C:\Working\WebApplication\obj\x64\Debug\netcoreapp3.1\WebApplication.AssemblyInfoInputs.cache
+C:\Working\WebApplication\obj\x64\Debug\netcoreapp3.1\WebApplication.AssemblyInfo.cs
+C:\Working\WebApplication\obj\x64\Debug\netcoreapp3.1\WebApplication.csproj.CoreCompileInputs.cache
+C:\Working\WebApplication\obj\x64\Debug\netcoreapp3.1\WebApplication.MvcApplicationPartsAssemblyInfo.cache

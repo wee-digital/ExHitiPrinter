@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Working\\WebApplication\\WebApplication.csproj": {}
+    "C:\\Huy\\repositories\\ExHitiPrinter\\WebApplication\\WebApplication.csproj": {}
   },
   "projects": {
-    "C:\\Working\\WebApplication\\WebApplication.csproj": {
+    "C:\\Huy\\repositories\\ExHitiPrinter\\WebApplication\\WebApplication.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Working\\WebApplication\\WebApplication.csproj",
+        "projectUniqueName": "C:\\Huy\\repositories\\ExHitiPrinter\\WebApplication\\WebApplication.csproj",
         "projectName": "WebApplication",
-        "projectPath": "C:\\Working\\WebApplication\\WebApplication.csproj",
+        "projectPath": "C:\\Huy\\repositories\\ExHitiPrinter\\WebApplication\\WebApplication.csproj",
         "packagesPath": "C:\\Users\\Huy\\.nuget\\packages\\",
-        "outputPath": "C:\\Working\\WebApplication\\obj\\",
+        "outputPath": "C:\\Huy\\repositories\\ExHitiPrinter\\WebApplication\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Huy\\AppData\\Roaming\\NuGet\\NuGet.Config",
