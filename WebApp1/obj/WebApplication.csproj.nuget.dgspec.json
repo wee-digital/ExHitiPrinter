@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Working\\WebApp1\\WebApplication.csproj": {}
+    "D:\\ExHitiPrinter\\WebApp1\\WebApplication.csproj": {}
   },
   "projects": {
-    "C:\\Working\\WebApp1\\WebApplication.csproj": {
+    "D:\\ExHitiPrinter\\WebApp1\\WebApplication.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Working\\WebApp1\\WebApplication.csproj",
+        "projectUniqueName": "D:\\ExHitiPrinter\\WebApp1\\WebApplication.csproj",
         "projectName": "WebApplication",
-        "projectPath": "C:\\Working\\WebApp1\\WebApplication.csproj",
-        "packagesPath": "C:\\Users\\Huy\\.nuget\\packages\\",
-        "outputPath": "C:\\Working\\WebApp1\\obj\\",
+        "projectPath": "D:\\ExHitiPrinter\\WebApp1\\WebApplication.csproj",
+        "packagesPath": "C:\\Users\\Wee\\.nuget\\packages\\",
+        "outputPath": "D:\\ExHitiPrinter\\WebApp1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Huy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Wee\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

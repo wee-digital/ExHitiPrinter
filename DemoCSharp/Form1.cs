@@ -33,7 +33,7 @@ namespace DemoCSharp
         int m_nPageToPrint;
         int m_nPagePrinted;
         readonly SocketClient client;
-        string socketUrl = "ws://10.10.0.145:57976/win";
+        string socketUrl = "ws://172.16.11.200:57976/win";
 
         //[DllImport("YLE402S.dll")]
         //static extern int GetCardNo(StringBuilder InStr, StringBuilder RcStr);
@@ -1203,8 +1203,8 @@ namespace DemoCSharp
             {
                 pictureBoxCard.Image = new Bitmap(ms);
                 var socketBitmap = new Bitmap(ms);
-                socketBitmap.Save(@"C:\Huy\img.bmp", ImageFormat.Bmp);
-
+                socketBitmap.Save(@"D:\img.bmp", ImageFormat.Bmp);
+                buttonSocketPrint.PerformClick();
                 //ImageCodecInfo encoder = GetEncoder(ImageFormat.Bmp);
                 //System.Drawing.Imaging.Encoder QualityEncoder = System.Drawing.Imaging.Encoder.Quality;
                 //EncoderParameters myEncoderParameters = new EncoderParameters(1);
@@ -1333,6 +1333,8 @@ namespace DemoCSharp
 
             pd.PrintPage -= OnSocketPrintPage;
         }
+
+        
        
         private void OnSocketPrintPage(object sender, PrintPageEventArgs e)
         {
@@ -1345,7 +1347,7 @@ namespace DemoCSharp
             Bitmap bmpK8;
 
             if (comboBoxOrientation.SelectedIndex == 0)//portrait
-                rect = new Rectangle(0, 0, 642, 1014);
+                rect = new Rectangle(0, 0, 642, 1014);// origin 642 x 1014
             else//landscape
                 rect = new Rectangle(0, 0, 1014, 642);
 
@@ -1379,9 +1381,9 @@ namespace DemoCSharp
             if (dwDataTypeK != 0)
             {
                 if (dwDataTypeK == PavoApi.PAVO_DATA_RESIN_FRONT)
-                    bmpK8 = (Bitmap)Bitmap.FromFile(@"C:\Huy\img.bmp");
+                    bmpK8 = (Bitmap)Bitmap.FromFile(@"D:\img.bmp");
                 else
-                    bmpK8 = (Bitmap)Bitmap.FromFile(@"C:\Huy\img.bmp");
+                    bmpK8 = (Bitmap)Bitmap.FromFile(@"D:\img.bmp");
                 dwRet = PavoApi.PAVO_SetExtraDataToHDC(hPrinterDC, dwDataTypeK, bmpK8);
             }
 
@@ -1394,19 +1396,19 @@ namespace DemoCSharp
                 if (checkBoxColor1.Checked)
                 {
                     //InsertText("Front Side");
-                    colorImg = Image.FromFile(textBoxColor1.Text);
+                    colorImg = Image.FromFile(@"D:\img.bmp");
                 }
                 else if (checkBoxColor2.Checked)
                 {
                     //InsertText("Back Side");
-                    colorImg = Image.FromFile(textBoxColor2.Text);
+                    colorImg = Image.FromFile(@"D:\img.bmp");
                 }
 
                 if (colorImg != null)
                     e.Graphics.DrawImage(colorImg, rect);
 
                 // Create string to draw.
-                String drawString = " ";
+                String drawString = "";
 
                 // Create font and brush.
                 Font drawFont = new Font("Arial", 16);
@@ -1425,7 +1427,7 @@ namespace DemoCSharp
                     if (checkBoxColor1.Checked)
                     {
                         //InsertText("Front Side");
-                        colorImg = Image.FromFile(textBoxColor1.Text);
+                        colorImg = Image.FromFile(@"D:\img.bmp");
                     }
                 }
                 else
@@ -1433,7 +1435,7 @@ namespace DemoCSharp
                     if (checkBoxColor2.Checked)
                     {
                         //InsertText("Back Side");
-                        colorImg = Image.FromFile(textBoxColor2.Text);
+                        colorImg = Image.FromFile(@"D:\img.bmp");
                     }
                 }
 
