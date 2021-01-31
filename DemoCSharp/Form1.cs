@@ -33,7 +33,7 @@ namespace DemoCSharp
         int m_nPageToPrint;
         int m_nPagePrinted;
         readonly SocketClient client;
-        string socketUrl = "ws://172.16.11.200:57976/win";
+        string filePath = @"C:\Users\Public\card.bmp";
 
         //[DllImport("YLE402S.dll")]
         //static extern int GetCardNo(StringBuilder InStr, StringBuilder RcStr);
@@ -1175,7 +1175,8 @@ namespace DemoCSharp
             }
             else
             {
-                client.Connect(socketUrl);
+                var url = String.Format(@"ws://{0}:57976/win", textBoxIPaddress.Text.Replace("\r\n", ""));
+                client.Connect(url);
             }
         }
 
@@ -1203,7 +1204,7 @@ namespace DemoCSharp
             {
                 pictureBoxCard.Image = new Bitmap(ms);
                 var socketBitmap = new Bitmap(ms);
-                socketBitmap.Save(@"D:\img.bmp", ImageFormat.Bmp);
+                socketBitmap.Save(filePath, ImageFormat.Bmp);
                 buttonSocketPrint.PerformClick();
                 //ImageCodecInfo encoder = GetEncoder(ImageFormat.Bmp);
                 //System.Drawing.Imaging.Encoder QualityEncoder = System.Drawing.Imaging.Encoder.Quality;
@@ -1381,9 +1382,9 @@ namespace DemoCSharp
             if (dwDataTypeK != 0)
             {
                 if (dwDataTypeK == PavoApi.PAVO_DATA_RESIN_FRONT)
-                    bmpK8 = (Bitmap)Bitmap.FromFile(@"D:\img.bmp");
+                    bmpK8 = (Bitmap)Bitmap.FromFile(filePath);
                 else
-                    bmpK8 = (Bitmap)Bitmap.FromFile(@"D:\img.bmp");
+                    bmpK8 = (Bitmap)Bitmap.FromFile(filePath);
                 dwRet = PavoApi.PAVO_SetExtraDataToHDC(hPrinterDC, dwDataTypeK, bmpK8);
             }
 
@@ -1396,12 +1397,12 @@ namespace DemoCSharp
                 if (checkBoxColor1.Checked)
                 {
                     //InsertText("Front Side");
-                    colorImg = Image.FromFile(@"D:\img.bmp");
+                    colorImg = Image.FromFile(filePath);
                 }
                 else if (checkBoxColor2.Checked)
                 {
                     //InsertText("Back Side");
-                    colorImg = Image.FromFile(@"D:\img.bmp");
+                    colorImg = Image.FromFile(filePath);
                 }
 
                 if (colorImg != null)
@@ -1427,7 +1428,7 @@ namespace DemoCSharp
                     if (checkBoxColor1.Checked)
                     {
                         //InsertText("Front Side");
-                        colorImg = Image.FromFile(@"D:\img.bmp");
+                        colorImg = Image.FromFile(filePath);
                     }
                 }
                 else
@@ -1435,7 +1436,7 @@ namespace DemoCSharp
                     if (checkBoxColor2.Checked)
                     {
                         //InsertText("Back Side");
-                        colorImg = Image.FromFile(@"D:\img.bmp");
+                        colorImg = Image.FromFile(filePath);
                     }
                 }
 
@@ -1464,5 +1465,9 @@ namespace DemoCSharp
             return null;
         }
 
+        private void textBoxIPaddress_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

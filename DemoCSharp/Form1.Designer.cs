@@ -173,7 +173,8 @@
             this.textBoxIPaddress.Name = "textBoxIPaddress";
             this.textBoxIPaddress.Size = new System.Drawing.Size(199, 30);
             this.textBoxIPaddress.TabIndex = 3;
-            this.textBoxIPaddress.Text = "192.168.2.95";
+            this.textBoxIPaddress.Text = "10.10.0.145\r\n";
+            this.textBoxIPaddress.TextChanged += new System.EventHandler(this.textBoxIPaddress_TextChanged);
             // 
             // radioButton2
             // 

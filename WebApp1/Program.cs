@@ -22,7 +22,7 @@ namespace WebApplication
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls("http://172.16.11.200 :57976");
+                    webBuilder.UseUrls("http://10.10.0.145:57976");
                 });
 
         

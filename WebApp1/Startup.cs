@@ -112,6 +112,7 @@ namespace WebApplication
             }
             catch (Exception e) 
             {
+             
                 System.Console.WriteLine(e.Message);
             }
         }
@@ -154,7 +155,7 @@ namespace WebApplication
             while (!result.CloseStatus.HasValue)
             {
                 await WebSocketWin.SendAsync(new ArraySegment<byte>(buffer, 0, result.Count), result.MessageType, result.EndOfMessage, CancellationToken.None);
-                result = await WebSocketWin.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+                //result = await WebSocketWin.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
                 System.Console.WriteLine("receive a message");
             }
             await WebSocketWin.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
