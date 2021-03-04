@@ -1176,7 +1176,7 @@ namespace DemoCSharp
             }
             else
             {
-                var url = String.Format(@"ws://{0}:57976/win", textBoxIPaddress.Text.Replace("\r\n", ""));
+                var url = String.Format(@"ws://{0}/win", textBoxIPaddress.Text.Replace("\r\n", ""));
                 client.Connect(url);
             }
         }
