@@ -33,8 +33,8 @@ namespace DemoCSharp
         int m_nPageToPrint;
         int m_nPagePrinted;
         readonly SocketClient client;
-        string FileName = @"C:\Users\Public\";
-        //string fileName = "";
+        string FileName = "";
+        string FilePath = @"C:\Users\Public\";
            
         //[DllImport("YLE402S.dll")]
         //static extern int GetCardNo(StringBuilder InStr, StringBuilder RcStr);
@@ -1205,9 +1205,8 @@ namespace DemoCSharp
             {
                 pictureBoxCard.Image = new Bitmap(ms);
                 var socketBitmap = new Bitmap(ms);
-            
+                FileName = FilePath + DateTimeOffset.Now.ToUnixTimeMilliseconds() + ".bmp";
                 socketBitmap.Save(FileName, ImageFormat.Bmp);
-                
                 buttonSocketPrint.PerformClick();
 
             }
