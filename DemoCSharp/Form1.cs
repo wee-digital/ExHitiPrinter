@@ -34,7 +34,7 @@ namespace DemoCSharp
         int m_nPagePrinted;
         readonly SocketClient client;
         string FileName = "";
-        string FilePath = @"C:\Users\Public\";
+        string FilePath = @"E\";
            
         //[DllImport("YLE402S.dll")]
         //static extern int GetCardNo(StringBuilder InStr, StringBuilder RcStr);
