@@ -34,7 +34,8 @@ namespace DemoCSharp
         int m_nPagePrinted;
         readonly SocketClient client;
         string FileName = "";
-        string FilePath = @"E\";
+        string FilePath = @"C:\Users\Public\";
+        bool IsPrinting = false;
            
         //[DllImport("YLE402S.dll")]
         //static extern int GetCardNo(StringBuilder InStr, StringBuilder RcStr);
@@ -420,7 +421,7 @@ namespace DemoCSharp
                                 break;
 
                             case PavoApi.MSG_JOB_END:
-                                MessageBox.Show(this, "Job is processed by driver.", "WndProc");
+                                //MessageBox.Show(this, "Job is processed by driver.", "WndProc");
                                 break;
 
                             case PavoApi.MSG_JOB_CANCELED:
@@ -1202,16 +1203,20 @@ namespace DemoCSharp
 
         public void OnMessage(MemoryStream ms) {
             try
-            {
+            { 
+                if (IsPrinting) return;
                 pictureBoxCard.Image = new Bitmap(ms);
                 var socketBitmap = new Bitmap(ms);
-                FileName = FilePath + DateTimeOffset.Now.ToUnixTimeMilliseconds() + ".bmp";
+                FileName = FilePath + "card" + DateTimeOffset.Now.ToUnixTimeMilliseconds() + ".bmp";
                 socketBitmap.Save(FileName, ImageFormat.Bmp);
+                IsPrinting = true;
+                Thread.Sleep(3000);
                 buttonSocketPrint.PerformClick();
 
             }
             catch (Exception e)
             {
+                IsPrinting = false;
                 MessageBox.Show(e.Message);
             }
         }
@@ -1445,6 +1450,8 @@ namespace DemoCSharp
                 e.HasMorePages = false;
             else
                 e.HasMorePages = true;
+
+            IsPrinting = false;
         }
 
         private ImageCodecInfo GetEncoder(ImageFormat format)

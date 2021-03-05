@@ -141,15 +141,23 @@ namespace WebApplication
             while (WebSocketAndroid == null || WebSocketAndroid.State != WebSocketState.Open)
             {
             }
-            var buffer = new byte[1024 * 4];
-            WebSocketReceiveResult result = await WebSocketWin.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-            while (!result.CloseStatus.HasValue)
+
+            try
+            {
+                var buffer = new byte[1024 * 4];
+                WebSocketReceiveResult result = await WebSocketWin.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+                    while (!result.CloseStatus.HasValue)
             {
                 await WebSocketWin.SendAsync(new ArraySegment<byte>(buffer, 0, result.Count), result.MessageType, result.EndOfMessage, CancellationToken.None);
                 result = await WebSocketWin.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
                 System.Console.WriteLine("receive a message");
             }
-            await WebSocketWin.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
+                await WebSocketWin.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
+            }
+            catch (Exception e) { 
+            
+            }
+            
         }
 
     }
